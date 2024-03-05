@@ -1,80 +1,57 @@
 package com.jarvlis.jaroj.model.vo;
 
-import cn.hutool.json.JSON;
 import cn.hutool.json.JSONUtil;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.jarvlis.jaroj.model.dto.question.JudgeConfig;
-import com.jarvlis.jaroj.model.entity.Question;
+import com.jarvlis.jaroj.judge.codesandbox.model.JudgeInfo;
+import com.jarvlis.jaroj.model.entity.QuestionSubmit;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 题目
- * @TableName question
+ * @TableName questions_submit
  */
 @Data
-public class QuestionVO implements Serializable {
-
-    private final static Gson GSON = new Gson();
-
+public class QuestionSubmitVO implements Serializable {
     /**
      * id
      */
     private Long id;
 
     /**
-     * 标题
+     * 编程语言
      */
-    private String title;
+    private String language;
 
     /**
-     * 内容
+     * 用户代码
      */
-    private String content;
+    private String code;
 
     /**
-     * 标签列表（json 数组）
+     * 判题信息(json对象)
      */
-    private List<String> tags;
+    private JudgeInfo judgeInfo;
 
     /**
-     * 题目提交数
+     * 判题状态(0 - 待判题, 1 - 判题中, 2 - 成功, 3 - 失败)
      */
-    private Integer submitNum;
+    private Integer status;
 
     /**
-     * 题目通过数
+     * 题目 id
      */
-    private Integer acceptedNum;
+    private Long questionId;
 
     /**
-     * 判题配置(json对象)
-     */
-    private JudgeConfig judgeConfig;
-
-    /**
-     * 点赞数
-     */
-    private Integer thumbNum;
-
-    /**
-     * 收藏数
-     */
-    private Integer favourNum;
-
-    /**
-     * 创建用户 id
+     * 提交用户 id
      */
     private Long userId;
 
     /**
-     * 创建时间
+     * 提交时间
      */
     private Date createTime;
 
@@ -84,51 +61,48 @@ public class QuestionVO implements Serializable {
     private Date updateTime;
 
     /**
-     * 题目创建人的信息
+     * 提交用户信息
      */
     private UserVO userVO;
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * 问题信息
+     */
+    private QuestionVO questionVO;
 
     /**
      * 包装类转对象
      *
-     * @param questionVO
+     * @param questionSubmitVO
      * @return
      */
-    public static Question voToObj(QuestionVO questionVO) {
-        if (questionVO == null) {
+    public static QuestionSubmit voToObj(QuestionSubmitVO questionSubmitVO) {
+        if (questionSubmitVO == null) {
             return null;
         }
-        Question question = new Question();
-        BeanUtils.copyProperties(questionVO, question);
-        List<String> tagList = questionVO.getTags();
-        if (tagList != null) {
-            question.setTags(JSONUtil.toJsonStr(tagList));
+        QuestionSubmit questionSubmit = new QuestionSubmit();
+        BeanUtils.copyProperties(questionSubmitVO, questionSubmit);
+        String judgeInfo = questionSubmit.getJudgeInfo();
+        if(judgeInfo != null){
+            questionSubmit.setJudgeInfo(JSONUtil.toJsonStr(judgeInfo));
         }
-        String judgeConfig = question.getJudgeConfig();
-        if(judgeConfig != null){
-            question.setTags(JSONUtil.toJsonStr(judgeConfig));
-        }
-        return question;
+        return questionSubmit;
     }
 
     /**
      * 对象转包装类
      *
-     * @param question
+     * @param questionSubmit
      * @return
      */
-    public static QuestionVO objToVo(Question question) {
-        if (question == null) {
+    public static QuestionSubmitVO objToVo(QuestionSubmit questionSubmit) {
+        if (questionSubmit == null) {
             return null;
         }
-        QuestionVO questionVO = new QuestionVO();
-        BeanUtils.copyProperties(question, questionVO);
-        List<String> tagList = JSONUtil.toList(question.getTags(), String.class);
-        questionVO.setTags(tagList);
-        String judgeConfig = question.getJudgeConfig();
-        questionVO.setJudgeConfig(JSONUtil.toBean(judgeConfig, JudgeConfig.class));
-        return questionVO;
+        QuestionSubmitVO questionSubmitVO = new QuestionSubmitVO();
+        BeanUtils.copyProperties(questionSubmit, questionSubmitVO);
+        String judgeInfo = questionSubmit.getJudgeInfo();
+        questionSubmitVO.setJudgeInfo(JSONUtil.toBean(judgeInfo, JudgeInfo.class));
+        return questionSubmitVO;
     }
 }

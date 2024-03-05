@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -57,8 +56,6 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
         String content = question.getContent();
         String tags = question.getTags();
         String answer = question.getAnswer();
-        Integer submitNum = question.getSubmitNum();
-        Integer acceptedNum = question.getAcceptedNum();
         String judgeCase = question.getJudgeCase();
         String judgeConfig = question.getJudgeConfig();
 

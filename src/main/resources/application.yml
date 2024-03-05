@@ -21,7 +21,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/jaroj
     username: root
-    password:
+    password: 123456
   # Redis 配置
   # todo 需替换配置，然后取消注释
 #  redis:
@@ -88,3 +88,5 @@ cos:
     secretKey: xxx
     region: xxx
     bucket: xxx
+codesandbox:
+  type: remote

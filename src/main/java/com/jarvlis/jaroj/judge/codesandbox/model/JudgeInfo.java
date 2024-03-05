@@ -1,4 +1,4 @@
-package com.jarvlis.jaroj.model.dto.quesitonsubmit;
+package com.jarvlis.jaroj.judge.codesandbox.model;
 
 /**
  * Author:Jarvlis

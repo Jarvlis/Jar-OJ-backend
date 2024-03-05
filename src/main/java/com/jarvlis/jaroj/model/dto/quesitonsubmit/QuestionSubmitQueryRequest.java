@@ -1,10 +1,10 @@
 package com.jarvlis.jaroj.model.dto.quesitonsubmit;
 
+import com.jarvlis.jaroj.common.PageRequest;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
 /**
  * 创建请求
@@ -13,7 +13,8 @@ import java.util.List;
 
  */
 @Data
-public class QuestionSubmitAddRequest implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+public class QuestionSubmitQueryRequest extends PageRequest implements Serializable {
 
     /**
      * 编程语言
@@ -21,9 +22,14 @@ public class QuestionSubmitAddRequest implements Serializable {
     private String language;
 
     /**
-     * 用户代码
+     * 提交状态
      */
-    private String code;
+    private Integer status;
+
+    /**
+     * 用户 id
+     */
+    private Long userId;
 
     /**
      * 题目 id
