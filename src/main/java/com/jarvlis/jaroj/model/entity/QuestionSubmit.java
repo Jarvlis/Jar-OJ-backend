@@ -16,7 +16,7 @@ public class QuestionSubmit implements Serializable {
     /**
      * id
      */
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
@@ -35,7 +35,7 @@ public class QuestionSubmit implements Serializable {
     private String judgeInfo;
 
     /**
-     * 判题状态(0 - 待判题, 1 - 判题中, 2 - 成功, 3 - 失败)
+     * 判题状态(0 - 待判题, 1 - 判题中, 2 - 成功, 3 - 失败... 失败的其它原因)
      */
     private Integer status;
 

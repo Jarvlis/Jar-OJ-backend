@@ -8,6 +8,8 @@ import com.jarvlis.jaroj.exception.BusinessException;
 import com.jarvlis.jaroj.judge.codesandbox.CodeSandBox;
 import com.jarvlis.jaroj.judge.codesandbox.model.ExecuteCodeRequest;
 import com.jarvlis.jaroj.judge.codesandbox.model.ExecuteCodeResponse;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 /**
  * Author:Jarvlis
@@ -18,7 +20,11 @@ import com.jarvlis.jaroj.judge.codesandbox.model.ExecuteCodeResponse;
 /**
  * 远程代码沙箱（实际调用接口的沙箱）
  */
+@Service
 public class RemoteCodeSandBox implements CodeSandBox {
+
+    @Value("${codesandbox.address}")
+    private String address;
 
     // 定义鉴权请求头和密钥
     private static final String AUTH_REQUEST_HEADER = "auth";
@@ -27,7 +33,7 @@ public class RemoteCodeSandBox implements CodeSandBox {
     @Override
     public ExecuteCodeResponse executeCode(ExecuteCodeRequest executeCodeRequest) {
         System.out.println("远程代码沙箱");
-        String url = "http://localhost:8090/executeCode";
+        String url = "https://sandbox.jarvlis.top:8090/executeCode";
         String json = JSONUtil.toJsonStr(executeCodeRequest);
         String responseStr = HttpUtil.createPost(url)
                 .header(AUTH_REQUEST_HEADER, AUTH_REQUEST_KEY)

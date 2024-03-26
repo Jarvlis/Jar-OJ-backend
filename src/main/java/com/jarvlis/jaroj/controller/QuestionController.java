@@ -295,7 +295,6 @@ public class QuestionController {
         long questionSubmitId = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
 
         return ResultUtils.success(questionSubmitId);
-
     }
 
     /**
@@ -318,4 +317,18 @@ public class QuestionController {
         return ResultUtils.success(questionSubmitService.getQuestionSubmitVOPage(questionSubmitPage, loginUser));
     }
 
+    /**
+     * 获取单个题目提交结果
+     *
+     * @param id 题目提交id
+     * @param request
+     * @return
+     */
+    @PostMapping("/question_submit/single")
+    public BaseResponse<Integer> QuestionSubmitById(long id, HttpServletRequest request) {
+        // 从数据库中查询原始的题目提交分页信息
+        QuestionSubmit questionSubmit = questionSubmitService.getById(id);
+        int res = questionSubmit.getStatus();
+        return ResultUtils.success(res);
+    }
 }
