@@ -1,31 +1,14 @@
-# SpringBoot 项目初始模板
+# Jar OJ 题目评测系统
 
-> 作者：[Jarvlis](https://github.com/Jarvlis)
+### 技术栈：
 
-基于 Java SpringBoot 的项目初始模板，整合了常用框架和主流业务的示例代码。
+前端: Vue3 + Vuex + Arco Design + TypeScript + ESLint + Prettier + OpenAPI + Monaco Editor + ByteMD
 
-只需 1 分钟即可完成内容网站的后端！！！大家还可以在此基础上快速开发自己的项目。
+前端仓库：https://github.com/Jarvlis/Jar-OJ-frontend
 
-[toc]
+后端：Java8 + SpringBoot2.7 + MyBatis-Plus + Docker + MySQL5.7 + Redis
 
-## 模板特点
-
-### 主流框架 & 特性
-
-- Spring Boot 2.7.x（贼新）
-- Spring MVC
-- MyBatis + MyBatis Plus 数据访问（开启分页）
-- Spring Boot 调试工具和项目处理器
-- Spring AOP 切面编程
-- Spring Scheduler 定时任务
-- Spring 事务注解
-
-### 数据存储
-
-- MySQL 数据库
-- Redis 内存数据库
-- Elasticsearch 搜索引擎
-- 腾讯云 COS 对象存储
+自主搭建的在线判题系统。系统可根据管理员发布的题目和预设的判题用例，将用户提交的代码执行与评测，并且系统提供了单独调用自主实现的代码沙箱的接口。
 
 ### 工具类
 
@@ -35,7 +18,7 @@
 - Apache Commons Lang3 工具类
 - Lombok 注解
 
-### 业务特性
+### 后端功能
 
 - Spring Session Redis 分布式登录
 - 全局请求响应拦截器（记录日志）
@@ -45,35 +28,14 @@
 - Swagger + Knife4j 接口文档
 - 自定义权限注解 + 全局校验
 - 全局跨域处理
-- 长整数丢失精度解决
 - 多环境配置
 
-
-## 业务功能
-
-- 提供示例 SQL（用户、帖子、帖子点赞、帖子收藏表）
-- 用户登录、注册、注销、更新、检索、权限管理
-- 帖子创建、删除、编辑、更新、数据库检索、ES 灵活检索
-- 帖子点赞、取消点赞
-- 帖子收藏、取消收藏、检索已收藏帖子
-- 帖子全量同步 ES、增量同步 ES 定时任务
-- 支持微信开放平台登录
-- 支持微信公众号订阅、收发消息、设置菜单
-- 支持分业务的文件上传
+## 系统功能
 
 ### 单元测试
 
 - JUnit5 单元测试
 - 示例单元测试类
-
-### 架构设计
-
-- 合理分层
-
-
-## 快速上手
-
-> 所有需要修改的地方鱼皮都标记了 `todo`，便于大家找到修改的位置~
 
 ### MySQL 数据库
 
@@ -131,34 +93,48 @@ spring:
 @SpringBootApplication
 ```
 
-### Elasticsearch 搜索引擎
+### 项目时序图
+(消息队列暂时未加入项目中, 过阵子会将RabbitMQ加入, 并且增设C++ 、 Python 、 JavaScript语言支持， 最后将项目改造为微服务)
 
-1）修改 `application.yml` 的 Elasticsearch 配置为你自己的：
+![yuque_diagram (1)](https://github.com/Jarvlis/Jar-OJ-frontend/assets/96105888/8e640a87-3798-40b0-a0ba-ab7afc38eb91)
 
-```yml
-spring:
-  elasticsearch:
-    uris: http://localhost:9200
-    username: root
-    password: 123456
-```
+### 项目展示
+登录页面
 
-2）复制 `sql/post_es_mapping.json` 文件中的内容，通过调用 Elasticsearch 的接口或者 Kibana Dev Tools 来创建索引（相当于数据库建表）
+![image](https://github.com/Jarvlis/Jar-OJ-frontend/assets/96105888/2aaa8df0-2054-449d-8960-f7c79297bf28)
 
-```
-PUT post_v1
-{
- 参数见 sql/post_es_mapping.json 文件
-}
-```
+注册页面
 
-这步不会操作的话需要补充下 Elasticsearch 的知识，或者自行百度一下~
+![image](https://github.com/Jarvlis/Jar-OJ-frontend/assets/96105888/46e2b9de-3041-4f9d-a062-99874e8e8341)
 
-3）开启同步任务，将数据库的帖子同步到 Elasticsearch
+题目页面
 
-找到 job 目录下的 `FullSyncPostToEs` 和 `IncSyncPostToEs` 文件，取消掉 `@Component` 注解的注释，再次执行程序即可触发同步：
+![image](https://github.com/Jarvlis/Jar-OJ-frontend/assets/96105888/509cf672-2dff-4921-ba8d-ea279e55e1c0)
 
-```java
-// todo 取消注释开启任务
-//@Component
-```
+做题页面
+
+![image](https://github.com/Jarvlis/Jar-OJ-frontend/assets/96105888/2ce63970-3798-410a-a780-1782c310d114)
+
+题目提交页面
+
+![image](https://github.com/Jarvlis/Jar-OJ-frontend/assets/96105888/544af9dc-b92e-4699-8614-a1dbb0329391)
+
+
+管理题目页面
+
+![image](https://github.com/Jarvlis/Jar-OJ-frontend/assets/96105888/9c0bbf95-e4e1-45b9-9c31-b8324421999c)
+
+
+创建题目页面
+
+![image](https://github.com/Jarvlis/Jar-OJ-frontend/assets/96105888/a1fa2cbe-a4d2-4e35-bec4-0cf45aaf2d66)
+
+
+### 项目待扩展点
+- 消息队列暂时未加入项目中, 过阵子会将RabbitMQ加入
+- 并且增设C++ 、 Python 、 JavaScript语言支持
+- 最后将项目改造为微服务
+- 增设更多用户友好型提示（如在做题页面即可浏览到做题结果）
+- 根据输入的题目分析判题数据图
+- 我的注销和个人做题分析页面
+- 做题目前仅支持args模式，可以扩展acm模式和力扣模式
