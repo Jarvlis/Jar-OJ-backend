@@ -13,7 +13,6 @@ import com.jarvlis.jaroj.exception.ThrowUtils;
 import com.jarvlis.jaroj.model.dto.quesitonsubmit.QuestionSubmitAddRequest;
 import com.jarvlis.jaroj.model.dto.quesitonsubmit.QuestionSubmitQueryRequest;
 import com.jarvlis.jaroj.model.dto.question.*;
-import com.jarvlis.jaroj.model.dto.user.UserQueryRequest;
 import com.jarvlis.jaroj.model.entity.Question;
 import com.jarvlis.jaroj.model.entity.QuestionSubmit;
 import com.jarvlis.jaroj.model.entity.User;
@@ -48,7 +47,7 @@ public class QuestionController {
     @Resource
     private UserService userService;
 
-    private final static Gson GSON = new Gson();
+    private static final Gson GSON = new Gson();
 
     // region 增删改查
 

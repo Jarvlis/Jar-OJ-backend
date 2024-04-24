@@ -105,7 +105,6 @@ public class JudgeServiceImpl implements JudgeService {
         if (!updateRes) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "题目状态更新错误");
         }
-        QuestionSubmit questionSubmitResult = questionSubmitService.getById(questionSubmitId);
-        return questionSubmitResult;
+        return questionSubmitService.getById(questionSubmitId);
     }
 }

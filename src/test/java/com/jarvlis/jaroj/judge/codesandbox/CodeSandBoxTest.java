@@ -1,5 +1,7 @@
 package com.jarvlis.jaroj.judge.codesandbox;
 
+import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONUtil;
 import com.jarvlis.jaroj.judge.codesandbox.model.ExecuteCodeRequest;
 import com.jarvlis.jaroj.judge.codesandbox.model.ExecuteCodeResponse;
 import com.jarvlis.jaroj.model.enums.QuestionSubmitLanguageEnum;
@@ -77,6 +79,17 @@ class CodeSandBoxTest {
                 .build();
         ExecuteCodeResponse executeCodeResponse = codeSandBox.executeCode(executeCodeRequest);
         Assertions.assertNotNull(executeCodeResponse);
+    }
+
+    @Test
+    void sendHttpsRequest() {
+        String url = "https://sandbox.jarvlis.top:8090/executeCode";
+        String responseStr = HttpUtil.createPost(url)
+                .header("auth", "secretKey")
+                .body((String) null)
+                .execute()
+                .body();
+        System.out.println(responseStr);
     }
 
     public static void main(String[] args) {

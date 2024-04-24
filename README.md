@@ -90,7 +90,7 @@ spring:
 
 
 ```java
-@SpringBootApplication
+@SpringBootApplication 
 ```
 
 ### 项目时序图
